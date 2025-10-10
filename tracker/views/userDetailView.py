@@ -1,8 +1,13 @@
 from rest_framework.views import APIView
-from rest_framework.response import Response
 from ..serializers import UserSerializer
+from budget_tracker.utility import Utility
 
 class UserDetailView(APIView):
-    def get(self, request):
+    def post(self, request):
         serializer = UserSerializer(request.user)
-        return Response(serializer.data)
+        return Utility.returnFormat(
+            message_type='success_msg',
+            data=serializer.data,
+            query='login_query',
+            http_status_code=200
+        )

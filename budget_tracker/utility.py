@@ -16,6 +16,8 @@ class Utility:
             msg = 'You deleted data successfully !!'
         elif query == 'logout_query':
             msg = 'You logged out successfully !!'
+        elif query == 'login_query':
+            msg = 'You have Login successfully !!'
         else:
             msg = query or 'No query action specified.'
 
