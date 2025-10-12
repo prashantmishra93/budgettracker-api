@@ -8,6 +8,6 @@ class UserDetailView(APIView):
         return Utility.returnFormat(
             message_type='success_msg',
             data=serializer.data,
-            query='login_query',
+            query='fetch_query',
             http_status_code=200
         )

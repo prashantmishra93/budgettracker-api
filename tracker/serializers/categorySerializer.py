@@ -3,6 +3,7 @@ from ..models import Category
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.id')
     class Meta:
         model = Category
-        fields = ['id', 'name', 'type']
+        fields = ['id', 'user', 'name', 'type']

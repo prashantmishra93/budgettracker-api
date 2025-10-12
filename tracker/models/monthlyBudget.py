@@ -1,7 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class MonthlyBudget(models.Model):
     # month in YYYY-MM format stored as string for simplicity, or use year+month ints
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='monthly_budgets')
     year = models.IntegerField()
     month = models.IntegerField()
     amount = models.DecimalField(max_digits=10, decimal_places=2)
