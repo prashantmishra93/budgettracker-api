@@ -7,4 +7,5 @@ from .getBudgetView import GetBudgetsView
 from .loginView import LoginView
 from .registerView import RegisterView
 from .userDetailView import UserDetailView
+from .userDetailView import AllUserView
 from .entryCreateView import EntryCreateView
