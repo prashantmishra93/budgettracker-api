@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from ..serializers import UserSerializer
 from rest_framework import status, permissions
 from budget_tracker.utility import Utility
+from django.contrib.auth.models import User
 
 class UserDetailView(APIView):
     def post(self, request):
@@ -19,7 +20,8 @@ class AllUserView(APIView):
     permission_classes = [permissions.AllowAny]
 
     def get(self, request):
-        serializer = UserSerializer.all()
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
         return Utility.returnFormat(
             message_type='success_msg',
             data=serializer.data,

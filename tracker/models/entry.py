@@ -20,7 +20,7 @@ class Entry(models.Model):
 
 
     def __str__(self):
-        t = 'Income' if self.is_income() else 'Expense'
+        t = 'income' if self.is_income() else 'expense'
         return f"{t} {self.amount} on {self.date} -> {self.category.name}"
     
     class Meta:

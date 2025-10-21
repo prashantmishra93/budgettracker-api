@@ -12,6 +12,7 @@ class TokenCheckMiddleware:
     EXEMPT_URLS = [
         '/api/login',
         '/api/register',
+        '/api/allUsers',
     ]
 
     def __init__(self, get_response):

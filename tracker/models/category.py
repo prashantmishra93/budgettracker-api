@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Category(models.Model):
     INCOME = 'income'
     EXPENSE = 'expense'
-    TYPE_CHOICES = [(INCOME, 'Income'), (EXPENSE, 'Expense')]
+    TYPE_CHOICES = [(INCOME, 'income'), (EXPENSE, 'expense')]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='categories')
     name = models.CharField(max_length=100)
