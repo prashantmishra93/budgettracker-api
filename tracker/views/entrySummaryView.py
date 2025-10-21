@@ -6,7 +6,7 @@ from datetime import date
 
 # Entries summary
 class EntrySummaryView(APIView):
-    def get(self, request):
+    def post(self, request):
         year = request.query_params.get('year', date.today().year)
         month = request.query_params.get('month', date.today().month)
 
