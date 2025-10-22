@@ -11,13 +11,19 @@ class EntryListView(APIView):
     def post(self, request):
         perPage = int(request.data.get('per_page', 10))
         page = int(request.data.get('page', 1))
-        year = request.query_params.get('year')
-        month = request.query_params.get('month')
+        category_name = request.data.get('category', '').strip()
+        date = request.data.get('date', '').strip()
+        amount = request.data.get('amount', '').strip()
         # Filter entries for logged-in user
         qs = Entry.objects.filter(user=request.user)
 
-        if year and month:
-            qs = qs.filter(date__year=year, date__month=month)
+        if category_name:
+            qs = qs.filter(category__name__icontains=category_name)
+        if date:
+            qs = qs.filter(date=date)
+        if amount:
+            qs = qs.filter(amount=amount)
+
         paginator = Paginator(qs, perPage)
         try:
             entries = paginator.page(page)
