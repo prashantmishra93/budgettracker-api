@@ -4,7 +4,7 @@ from rest_framework import status as http_status
 class Utility:
     
     @staticmethod
-    def returnFormat(message_type, data=None, query=None, error=False, http_status_code=http_status.HTTP_200_OK):
+    def returnFormat(message_type, data=None, query=None, error=False, http_status_code=http_status.HTTP_200_OK, extra=None):
         # Define message based on query type
         if query == 'update_query':
             msg = 'You successfully updated your details !!'
@@ -31,6 +31,9 @@ class Utility:
             'message': msg,
             'error_code': error
         }
+        
+        if extra:
+            resp_data['extraData'] = extra
         # Return DRF Response object
         return Response(resp_data, status=http_status_code)
 
