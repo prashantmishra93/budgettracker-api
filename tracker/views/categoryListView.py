@@ -39,9 +39,11 @@ class DeleteCategoryView(APIView):
         category_id = request.data.get('id')
 
         if not category_id:
-            return Response(
-                {"message": "Category ID is required"},
-                status=status.HTTP_400_BAD_REQUEST
+            return Utility.returnFormat(
+                message_type='error_msg',
+                data=[],
+                query='validation_error',
+                http_status_code=status.HTTP_400_BAD_REQUEST
             )
 
         try:
@@ -49,17 +51,21 @@ class DeleteCategoryView(APIView):
             category.delete()
             return Utility.returnFormat(
                 message_type='success_msg',
-                data=serializer.data,
+                data=[],
                 query='delete_query',
                 http_status_code=status.HTTP_200_OK
             )
         except Category.DoesNotExist:
-            return Response(
-                {"status": "FAILED", "message": "Category not found"},
-                status=status.HTTP_404_NOT_FOUND
+            return Utility.returnFormat(
+                message_type='error_msg',
+                data=[],
+                query='validation_error',
+                http_status_code=status.HTTP_400_BAD_REQUEST
             )
         except Exception as e:
-            return Response(
-                {"status": "FAILED", "message": str(e)},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            return Utility.returnFormat(
+                message_type='error_msg',
+                data=[],
+                query='validation_error',
+                http_status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
