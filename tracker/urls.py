@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RegisterView, LoginView, UserDetailView, CategoryListView, BudgetListView, EntryListView, EntrySummaryView, GetBudgetsView, EntryCreateView, CategoryCreateView, AllUserView, DeleteCategoryView
+from .views import RegisterView, LoginView, UserDetailView, CategoryListView, BudgetListView, EntryListView, EntrySummaryView, GetBudgetsView, EntryCreateView, CategoryCreateView, AllUserView, DeleteCategoryView, DeleteBudgetView, DeleteTransactionView
 
 urlpatterns = [
     path("register", RegisterView.as_view(), name="register"),
@@ -11,6 +11,8 @@ urlpatterns = [
     path('addCategories', CategoryCreateView.as_view(), name='addCategories'),
     path('addBudget', BudgetListView.as_view(), name='addBudget'),
     path('getEntries', EntryListView.as_view(), name='get_entries'),
+    path('deleteTransaction', DeleteTransactionView.as_view(), name='deleteTransaction'),
+    path('deleteBudget', DeleteBudgetView.as_view(), name='deleteBudget'),
     path('entriesSummary', EntrySummaryView.as_view(), name='entries_summary'),
     path('entries', EntryCreateView.as_view(), name='entries'),
     path('getBudgets', GetBudgetsView.as_view(), name='get_budgets'),

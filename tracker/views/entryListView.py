@@ -50,3 +50,40 @@ class EntryListView(APIView):
             query='fetch_query',
             http_status_code=status.HTTP_200_OK
         )
+
+
+class DeleteTransactionView(APIView):
+    def post(self, request):
+        trans_id = request.data.get('id')
+
+        if not trans_id:
+            return Utility.returnFormat(
+                message_type='error_msg',
+                data=[],
+                query='validation_error',
+                http_status_code=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            category = Entry.objects.get(id=trans_id)
+            category.delete()
+            return Utility.returnFormat(
+                message_type='success_msg',
+                data=[],
+                query='delete_query',
+                http_status_code=status.HTTP_200_OK
+            )
+        except Entry.DoesNotExist:
+            return Utility.returnFormat(
+                message_type='error_msg',
+                data=[],
+                query='validation_error',
+                http_status_code=status.HTTP_400_BAD_REQUEST
+            )
+        except Exception as e:
+            return Utility.returnFormat(
+                message_type='error_msg',
+                data=[],
+                query='validation_error',
+                http_status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
