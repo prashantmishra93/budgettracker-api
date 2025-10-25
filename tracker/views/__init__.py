@@ -1,6 +1,7 @@
 from .budgetListView import BudgetListView
 from .categoryListView import CategoryListView
 from .categoryListView import CategoryCreateView
+from .categoryListView import DeleteCategoryView
 from .entryListView import EntryListView
 from .entrySummaryView import EntrySummaryView
 from .getBudgetView import GetBudgetsView
