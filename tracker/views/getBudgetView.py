@@ -12,8 +12,8 @@ class GetBudgetsView(APIView):
     permission_classes = [IsAuthenticated]
     
     def post(self, request):
-        perPage = int(request.query_params.get('per_page', 10))
-        page = int(request.query_params.get('page', 1))
+        perPage = int(request.data.get('per_page', 10))
+        page = int(request.data.get('page', 1))
 
         qs = MonthlyBudget.objects.filter(user=request.user).order_by('-id')
 
