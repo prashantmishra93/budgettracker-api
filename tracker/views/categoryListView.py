@@ -104,7 +104,7 @@ class GetCategoryByIdView(APIView):
                 http_status_code=status.HTTP_400_BAD_REQUEST
             )
         
-        data = Category.object.get(id=category_id)
+        data = Category.objects.get(id=category_id)
         serializer = CategorySerializer(data)
         return Utility.returnFormat(
             message_type='success_msg',
