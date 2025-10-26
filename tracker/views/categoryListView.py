@@ -92,3 +92,62 @@ class DeleteCategoryView(APIView):
                 query='validation_error',
                 http_status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+
+class GetCategoryByIdView(APIView):
+    def post(self, request):
+        category_id = request.data.get('id')
+        if not category_id:
+            return Utility.returnFormat(
+                message_type='error_msg',
+                data=[],
+                query='validation_error',
+                http_status_code=status.HTTP_400_BAD_REQUEST
+            )
+        
+        data = Category.object.get(id=category_id)
+        serializer = CategorySerializer(data)
+        return Utility.returnFormat(
+            message_type='success_msg',
+            data=serializer.data,
+            query='fetch_query',
+            http_status_code=status.HTTP_200_OK
+        )
+
+class UpdateCategoryView(APIView):
+    def post(self, request):
+        category_id = request.data.get('id')
+
+        if not category_id:
+            return Utility.returnFormat(
+                message_type='error_msg',
+                data=[],
+                query='validation_error',
+                http_status_code=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            category = Category.objects.get(id=category_id)
+        except Category.DoesNotExist:
+            return Utility.returnFormat(
+                message_type='error_msg',
+                data=[],
+                query='not_found',
+                http_status_code=status.HTTP_404_NOT_FOUND
+            )
+
+        serializer = CategorySerializer(category, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Utility.returnFormat(
+                message_type='success_msg',
+                data=serializer.data,
+                query='update_query',
+                http_status_code=status.HTTP_200_OK
+            )
+        
+        return Utility.returnFormat(
+            message_type='error_msg',
+            data=serializer.errors,
+            query='validation_error',
+            http_status_code=status.HTTP_400_BAD_REQUEST
+        )

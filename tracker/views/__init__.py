@@ -3,6 +3,8 @@ from .budgetListView import DeleteBudgetView
 from .categoryListView import CategoryListView
 from .categoryListView import CategoryCreateView
 from .categoryListView import DeleteCategoryView
+from .categoryListView import GetCategoryByIdView
+from .categoryListView import UpdateCategoryView
 from .entryListView import EntryListView
 from .entryListView import DeleteTransactionView
 from .entrySummaryView import EntrySummaryView
