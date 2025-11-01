@@ -18,13 +18,12 @@ class EntrySummaryView(APIView):
             year = int(year)
         print(year)
         
-        entries = Entry.objects.all()
+        entries = Entry.objects.filter(user=request.user)
         
         if year:
             entries = entries.filter(date__year=year)
             
-        print(entries)
-        allYearBudget = MonthlyBudget.objects.values_list('year', flat=True).distinct().order_by('year')
+        allYearBudget = MonthlyBudget.objects.filter(user=request.user).values_list('year', flat=True).distinct().order_by('year')
         available_years = list(allYearBudget)
         entries = (
             entries.annotate(year=ExtractYear('date'), month=ExtractMonth('date'))
@@ -52,7 +51,7 @@ class EntrySummaryView(APIView):
                 grouped[year][month]['expenses'] = total
 
         # Step 3: Fetch all budgets and map them by (year, month)
-        budgets = MonthlyBudget.objects.values('year', 'month', 'amount')
+        budgets = MonthlyBudget.objects.filter(user=request.user).values('year', 'month', 'amount')
         budget_map = {(b['year'], b['month']): b['amount'] for b in budgets}
 
         # Step 4: Combine everything into a year->months list
