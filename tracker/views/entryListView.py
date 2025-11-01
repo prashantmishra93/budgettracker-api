@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from ..models import Entry
 from ..serializers import EntrySerializer
 from budget_tracker.utility import Utility
@@ -8,6 +9,7 @@ from math import ceil
 
 
 class EntryListView(APIView):
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         perPage = int(request.data.get('per_page', 10))
         page = int(request.data.get('page', 1))
