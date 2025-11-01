@@ -3,7 +3,7 @@ from .views import (
     RegisterView, LoginView, UserDetailView, CategoryListView, BudgetListView, EntryListView, 
     EntrySummaryView, GetBudgetsView, EntryCreateView, CategoryCreateView, AllUserView, 
     DeleteCategoryView, DeleteBudgetView, DeleteTransactionView, GetCategoryByIdView, 
-    UpdateCategoryView
+    UpdateCategoryView, GetEntryByIdView, UpdateEntryView
 )
 
 urlpatterns = [
@@ -19,6 +19,8 @@ urlpatterns = [
     path('addBudget', BudgetListView.as_view(), name='addBudget'),
     path('getEntries', EntryListView.as_view(), name='get_entries'),
     path('deleteTransaction', DeleteTransactionView.as_view(), name='deleteTransaction'),
+    path('getTransactionById', GetEntryByIdView.as_view(), name='getTransactionById'),
+    path('updateTransaction', UpdateEntryView.as_view(), name='updateTransaction'),
     path('deleteBudget', DeleteBudgetView.as_view(), name='deleteBudget'),
     path('entriesSummary', EntrySummaryView.as_view(), name='entries_summary'),
     path('entries', EntryCreateView.as_view(), name='entries'),

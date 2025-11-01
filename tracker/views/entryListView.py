@@ -87,3 +87,62 @@ class DeleteTransactionView(APIView):
                 query='validation_error',
                 http_status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+
+
+class GetEntryByIdView(APIView):
+    def post(self, request):
+        entry_id = request.data.get('id')
+        if not entry_id:
+            return Utility.returnFormat(
+                message_type='error_msg',
+                data=[],
+                query='validation_error',
+                http_status_code=status.HTTP_400_BAD_REQUEST
+            )
+        
+        data = Entry.objects.get(id=entry_id)
+        serializer = EntrySerializer(data)
+        return Utility.returnFormat(
+            message_type='success_msg',
+            data=serializer.data,
+            query='fetch_query',
+            http_status_code=status.HTTP_200_OK
+        )
+
+class UpdateEntryView(APIView):
+    def post(self, request):
+        entry_id = request.data.get('id')
+
+        if not entry_id:
+            return Utility.returnFormat(
+                message_type='error_msg',
+                data=[],
+                query='validation_error',
+                http_status_code=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            entry = Entry.objects.get(id=entry_id)
+        except Entry.DoesNotExist:
+            return Utility.returnFormat(
+                message_type='error_msg',
+                data=[],
+                query='not_found',
+                http_status_code=status.HTTP_404_NOT_FOUND
+            )
+
+        serializer = EntrySerializer(entry, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Utility.returnFormat(
+                message_type='success_msg',
+                data=serializer.data,
+                query='update_query',
+                http_status_code=status.HTTP_200_OK
+            )
+        return Utility.returnFormat(
+            message_type='error_msg',
+            data=serializer.errors,
+            query='validation_error',
+            http_status_code=status.HTTP_400_BAD_REQUEST
+        )

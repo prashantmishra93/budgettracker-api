@@ -7,6 +7,8 @@ from .categoryListView import GetCategoryByIdView
 from .categoryListView import UpdateCategoryView
 from .entryListView import EntryListView
 from .entryListView import DeleteTransactionView
+from .entryListView import GetEntryByIdView
+from .entryListView import UpdateEntryView
 from .entrySummaryView import EntrySummaryView
 from .getBudgetView import GetBudgetsView
 from .loginView import LoginView
