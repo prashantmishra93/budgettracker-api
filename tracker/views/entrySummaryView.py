@@ -18,6 +18,7 @@ class EntrySummaryView(APIView):
             year = int(year)
         print(year)
         
+        # This is QuerySet process
         entries = Entry.objects.filter(user=request.user)
         
         if year:
@@ -51,6 +52,7 @@ class EntrySummaryView(APIView):
                 grouped[year][month]['expenses'] = total
 
         # Step 3: Fetch all budgets and map them by (year, month)
+        # this is QuerySet process when we need execution like lazy evaluation
         budgets = MonthlyBudget.objects.filter(user=request.user).values('year', 'month', 'amount')
         budget_map = {(b['year'], b['month']): b['amount'] for b in budgets}
 

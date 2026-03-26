@@ -3,3 +3,4 @@ from .monthlyBudgetSerializer import MonthlyBudgetSerializer
 from .entrySerializer import EntrySerializer
 from .userSerializer import UserSerializer
 from .registerSerializer import RegisterSerializer
+from .stockPriceSerializer import StockPriceSerialer

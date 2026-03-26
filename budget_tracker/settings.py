@@ -14,9 +14,20 @@ from pathlib import Path
 import os
 import dj_database_url
 from datetime import timedelta
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+BASE_DIR2 = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR2, ".env"))
+
+OPENAI_API_KEY = env("OPENAI_API_KEY", default=None)
+
+LOG_DIR = BASE_DIR / "logs"
+LOG_DIR.mkdir(exist_ok=True)
 
 
 # Quick-start development settings - unsuitable for production
@@ -30,6 +41,49 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "[{asctime}] {levelname} {name} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            "filename": BASE_DIR / "logs" / "django.log",
+            'formatter': 'verbose',
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console", "file"],
+            "propagate": True,
+        },
+        "django.request": {
+            "handlers": ["file"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "budget_tracker": {
+            "handlers": ["console", "file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}
 
 # Application definition
 
@@ -83,23 +137,17 @@ WSGI_APPLICATION = 'budget_tracker.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-if os.environ.get('RENDER'):
-    # Running on Render → use DATABASE_URL
-    DATABASES = {
-        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-    }
-else:
     # Running locally → use MySQL
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'budget_tracker',
-            'USER': 'root',
-            'PASSWORD': '',
-            'HOST': 'localhost',
-            'PORT': '3306',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'budget_tracker',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
+}
 
 
 # Password validation
@@ -149,10 +197,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
-    # "http://localhost:3000",   # React dev server
-    # "http://localhost:3001",   # React dev server
-    "https://budgettracker-app-6wpg.onrender.com",
-    "https://budgettracker-app-2.onrender.com/"
+    "http://localhost:3000",   # React dev server
 ]
 
 REST_FRAMEWORK = {

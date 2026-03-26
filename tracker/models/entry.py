@@ -3,6 +3,7 @@ from django.utils import timezone
 from .category import Category
 from django.contrib.auth.models import User
 
+# Entry is a database table name.
 class Entry(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='entries')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='entries')

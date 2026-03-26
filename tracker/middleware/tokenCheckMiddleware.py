@@ -18,6 +18,7 @@ class TokenCheckMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
+    # middleware intercepts request before view runs
     def __call__(self, request):
         path = request.path
         # Skip exempt URLs
