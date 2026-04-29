@@ -61,7 +61,7 @@ LOGGING = {
             "formatter": "simple",
         },
         'file': {
-            'level': 'ERROR',
+            'level': 'INFO',
             'class': 'logging.FileHandler',
             "filename": BASE_DIR / "logs" / "django.log",
             'formatter': 'verbose',
@@ -70,6 +70,7 @@ LOGGING = {
     "loggers": {
         "django": {
             "handlers": ["console", "file"],
+            "level": "INFO",
             "propagate": True,
         },
         "django.request": {
@@ -81,6 +82,10 @@ LOGGING = {
             "handlers": ["console", "file"],
             "level": "INFO",
             "propagate": False,
+        },
+        "": {
+            "handlers": ["file"],
+            "level": "INFO",
         },
     },
 }
@@ -111,7 +116,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'tracker.middleware.tokenCheckMiddleware.TokenCheckMiddleware'
+    'tracker.middleware.tokenCheckMiddleware.TokenCheckMiddleware',
+    'tracker.middleware.loggingMiddleware.LoggingMiddleware'
 ]
 
 ROOT_URLCONF = 'budget_tracker.urls'
@@ -146,6 +152,9 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
+        'TEST': {
+            'NAME': 'test_budget_tracker',
+        }
     }
 }
 

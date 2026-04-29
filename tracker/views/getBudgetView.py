@@ -15,7 +15,7 @@ class GetBudgetsView(APIView):
         perPage = int(request.data.get('per_page', 10))
         page = int(request.data.get('page', 1))
 
-        qs = MonthlyBudget.objects.filter(user=request.user).order_by('-id')
+        qs = MonthlyBudget.objects.filter(user=request.user).order_by('-year', '-month')
 
         paginator = Paginator(qs, perPage)
         try:
