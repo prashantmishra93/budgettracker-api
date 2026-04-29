@@ -1,2 +1,6 @@
 [2026-04-29 22:52:51,572] INFO django.utils.autoreload D:\Freelancer\DotProduct Project\budget_tracker\tracker\views\entrySummaryView.py changed, reloading.
 [2026-04-29 22:52:51,572] INFO django.utils.autoreload D:\Freelancer\DotProduct Project\budget_tracker\tracker\views\entrySummaryView.py changed, reloading.
+[2026-04-29 22:53:59,393] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-04-29 22:53:59,393] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-04-29 22:59:05,637] INFO django.utils.autoreload D:\Freelancer\DotProduct Project\budget_tracker\budget_tracker\settings.py changed, reloading.
+[2026-04-29 22:59:05,637] INFO django.utils.autoreload D:\Freelancer\DotProduct Project\budget_tracker\budget_tracker\settings.py changed, reloading.

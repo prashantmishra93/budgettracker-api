@@ -6,9 +6,8 @@ from rest_framework import status
 from budget_tracker.utility import Utility
 from datetime import date
 import calendar
-from rest_framework.permissions import IsAuthenticated
+
 class EntrySummaryView(APIView):
-    permission_classes = [IsAuthenticated]
     def post(self, request):
         year = request.data.get('year') or request.query_params.get('year')
 
@@ -17,6 +16,7 @@ class EntrySummaryView(APIView):
             year = date.today().year
         else:
             year = int(year)
+        print(year)
         
         # This is QuerySet process
         entries = Entry.objects.filter(user=request.user)
